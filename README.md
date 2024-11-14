@@ -48,6 +48,18 @@ $ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url arbitrum_sepol
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url arbitrum_sepolia --broadcast
 ```
 
+Sample Contract Address: [0xdd06724f208b5a561a001ba23f989b874f1c204a](https://sepolia.arbiscan.io/address/0xdd06724f208b5a561a001ba23f989b874f1c204a)
+
+### Deploy (Ethereum Sepolia)
+
+```shell
+$ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url ethereum_sepolia --broadcast
+$ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url ethereum_sepolia --broadcast
+$ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url ethereum_sepolia --broadcast
+```
+
+Sample Contract Address: [0xCe80efd4A439c1ED151AfCB84506B6748B4882aC](https://sepolia.etherscan.io/address/0xCe80efd4A439c1ED151AfCB84506B6748B4882aC)
+
 ### Interact with Contract (Anvil)
 
 First, load the environment variables:
