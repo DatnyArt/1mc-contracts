@@ -176,42 +176,6 @@ contract OneMillionCubes is Ownable {
     }
 
     /**
-     * @notice Register a new cube
-     * @param _coordinateHash The hash of the cube's coordinates
-     * @param _cubeType The type of the cube (GOLD, SILVER, or BRONZE)
-     * @dev Only the contract owner can register cubes
-     */
-    function registerCube(
-        bytes32 _coordinateHash,
-        CubeType _cubeType
-    ) external onlyOwner {
-        if (cubes[_coordinateHash] != CubeType.NONE) {
-            revert CubeAlreadyRegistered(_coordinateHash);
-        }
-
-        if (_cubeType == CubeType.NONE || _cubeType > CubeType.DIAMOND) {
-            revert InvalidCubeType(_cubeType);
-        }
-
-        CubeCounts memory totalCounts = getTotalRegisteredCubes();
-        uint256 totalRegistered = totalCounts.gold +
-            totalCounts.silver +
-            totalCounts.bronze +
-            totalCounts.platinum +
-            totalCounts.diamond;
-
-        if (totalRegistered >= totalAllowedCubes) {
-            revert AllCubesRegistered(CubeType.NONE); // NONE indicates all types are full
-        }
-
-        _updateCubeCount(_cubeType);
-
-        cubes[_coordinateHash] = _cubeType;
-
-        emit CubeRegistered(_coordinateHash, _cubeType);
-    }
-
-    /**
      * @notice Register multiple cubes in a single transaction
      * @param _registrations Array of CubeRegistration structs
      * @dev Only the contract owner can register cubes

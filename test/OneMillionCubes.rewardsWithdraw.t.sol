@@ -59,7 +59,12 @@ contract OneMillionCubesRewardsWithdraw is OneMillionCubesCore {
 
         // Register cubes
         vm.prank(owner);
-        cubes.registerCube(CUBE_HASH, OneMillionCubes.CubeType.GOLD);
+        OneMillionCubes.CubeRegistration[] memory registrations = new OneMillionCubes.CubeRegistration[](1);
+        registrations[0] = OneMillionCubes.CubeRegistration({
+            coordinateHash: CUBE_HASH,
+            cubeType: OneMillionCubes.CubeType.GOLD
+        });
+        cubes.registerCubes(registrations);
 
         // Simulate minimum selections
         for (uint i = 0; i < MIN_DISC_ELEM_NUMB; i++) {
@@ -72,7 +77,7 @@ contract OneMillionCubesRewardsWithdraw is OneMillionCubesCore {
         }
 
         // Select the cube for user1
-        vm.deal(user1, FEE );
+        vm.deal(user1, FEE);
         vm.prank(user1);
         OneMillionCubes.Selection[] memory userSelections = new OneMillionCubes.Selection[](1);
         userSelections[0] = OneMillionCubes.Selection({x: X, y: Y});
@@ -144,7 +149,12 @@ contract OneMillionCubesRewardsWithdraw is OneMillionCubesCore {
 
         // Register the cube
         vm.prank(owner);
-        cubes.registerCube(CUBE_HASH, OneMillionCubes.CubeType.GOLD);
+        OneMillionCubes.CubeRegistration[] memory registrations = new OneMillionCubes.CubeRegistration[](1);
+        registrations[0] = OneMillionCubes.CubeRegistration({
+            coordinateHash: CUBE_HASH,
+            cubeType: OneMillionCubes.CubeType.GOLD
+        });
+        cubes.registerCubes(registrations);
 
         // Initialize the contract
         vm.prank(owner);
