@@ -404,16 +404,20 @@ contract OneMillionCubes is Ownable {
     }
 
     /**
-     * @notice Get the address of the user who selected a specific coordinate
-     * @param _x X-coordinate
-     * @param _y Y-coordinate
-     * @return Address of the user who selected the coordinate
+     * @notice Get the addresses of users who selected specific coordinates
+     * @param _selections Array of Selection structs containing coordinates
+     * @return Array of addresses who selected the coordinates
      */
-    function getCoordinateSelector(
-        uint256 _x,
-        uint256 _y
-    ) external view returns (address) {
-        return coordinateSelections[_x][_y];
+    function getCoordinateSelectors(
+        Selection[] calldata _selections
+    ) external view returns (address[] memory) {
+        address[] memory selectors = new address[](_selections.length);
+        
+        for (uint256 i = 0; i < _selections.length; i++) {
+            selectors[i] = coordinateSelections[_selections[i].x][_selections[i].y];
+        }
+        
+        return selectors;
     }
 
     /**

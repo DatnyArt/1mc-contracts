@@ -113,7 +113,51 @@ contract OneMillionCubesSelectCube is OneMillionCubesCore {
         vm.prank(user1);
         cubes.selectCube{value: FEE}(selections, ref1);
 
-        assertEq(cubes.getCoordinateSelector(70, 80), user1);
+        // Create selection array for query
+        OneMillionCubes.Selection[] memory querySelections = new OneMillionCubes.Selection[](1);
+        querySelections[0] = OneMillionCubes.Selection({x: 70, y: 80});
+        
+        address[] memory selectors = cubes.getCoordinateSelectors(querySelections);
+        assertEq(selectors.length, 1);
+        assertEq(selectors[0], user1);
+    }
+
+    function testGetMultipleCoordinateSelectors() public {
+        OneMillionCubes.Selection[] memory selections1 = new OneMillionCubes.Selection[](1);
+        selections1[0] = OneMillionCubes.Selection({x: 90, y: 100});
+        vm.prank(user1);
+        cubes.selectCube{value: FEE}(selections1, ref1);
+
+        OneMillionCubes.Selection[] memory selections2 = new OneMillionCubes.Selection[](1);
+        selections2[0] = OneMillionCubes.Selection({x: 110, y: 120});
+        vm.prank(user2);
+        cubes.selectCube{value: FEE}(selections2, ref1);
+
+        OneMillionCubes.Selection[] memory querySelections = new OneMillionCubes.Selection[](2);
+        querySelections[0] = OneMillionCubes.Selection({x: 90, y: 100});
+        querySelections[1] = OneMillionCubes.Selection({x: 110, y: 120});
+
+        address[] memory selectors = cubes.getCoordinateSelectors(querySelections);
+        
+        assertEq(selectors.length, 2);
+        assertEq(selectors[0], user1);
+        assertEq(selectors[1], user2);
+    }
+
+    function testGetEmptyCoordinateSelectors() public view {
+        OneMillionCubes.Selection[] memory querySelections = new OneMillionCubes.Selection[](0);
+        address[] memory selectors = cubes.getCoordinateSelectors(querySelections);
+        assertEq(selectors.length, 0);
+    }
+
+    function testGetUnselectedCoordinateSelectors() public view {
+        OneMillionCubes.Selection[] memory querySelections = new OneMillionCubes.Selection[](1);
+        querySelections[0] = OneMillionCubes.Selection({x: 130, y: 140});
+        
+        address[] memory selectors = cubes.getCoordinateSelectors(querySelections);
+        
+        assertEq(selectors.length, 1);
+        assertEq(selectors[0], address(0));
     }
 
     function testCannotSelectCubeWithInsufficientFee() public {

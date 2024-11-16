@@ -122,7 +122,7 @@ cast send $CONTRACT_ADDRESS "selectCube((uint256,uint256)[],address)" "[(${X},${
 
 Check if coordinate is already selected:
 ```shell
-$ cast call $CONTRACT_ADDRESS "getCoordinateSelector(uint256,uint256)" $X $Y | sed 's/0x000000000000000000000000/0x/' | cast --to-checksum-address
+$ cast call $CONTRACT_ADDRESS "getCoordinateSelectors((uint256,uint256)[])" "[(${X},${Y})]"
 ```
 
 #### View Functions
