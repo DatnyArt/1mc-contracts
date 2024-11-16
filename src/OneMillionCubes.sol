@@ -406,6 +406,23 @@ contract OneMillionCubes is Ownable {
     }
 
     /**
+     * @notice Check if rewards have been claimed for multiple cube hashes
+     * @param rewardHashes Array of cube hashes to check
+     * @return claimedStatuses Array of booleans indicating if each reward has been claimed
+     */
+    function checkRewardsClaimed(
+        bytes32[] calldata rewardHashes
+    ) external view returns (bool[] memory claimedStatuses) {
+        claimedStatuses = new bool[](rewardHashes.length);
+        
+        for (uint256 i = 0; i < rewardHashes.length; i++) {
+            claimedStatuses[i] = rewardsClaimed[rewardHashes[i]];
+        }
+        
+        return claimedStatuses;
+    }
+
+    /**
      * @notice Update the count of cubes for a specific type
      * @param _cubeType Type of cube to update the count for
      * @dev This function is called internally when registering a new cube
