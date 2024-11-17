@@ -13,6 +13,5 @@ forge-std = { version = "1.9.2", url = "https://soldeer-revisions.s3.amazonaws.c
 
 [rpc_endpoints]
 arbitrum_sepolia = "${ARBITRUM_SEPOLIA_RPC_URL}"
-bsc_testnet = "${BSC_TESTNET_RPC_URL}"
-ethereum_sepolia = "${ETHEREUM_SEPOLIA_RPC_URL}"
 base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
+bsc_testnet = "${BSC_TESTNET_RPC_URL}"
