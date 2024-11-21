@@ -36,38 +36,65 @@ $ anvil
 
 ```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url http://localhost:8545 --broadcast
-$ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url http://localhost:8545 --broadcast
+$ forge script script/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url http://localhost:8545 --broadcast
+$ forge script script/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url http://localhost:8545 --broadcast
+$ forge script script/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url http://localhost:8545 --broadcast
+$ forge script script/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url http://localhost:8545 --broadcast
+$ forge script script/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url http://localhost:8545 --broadcast
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url http://localhost:8545 --broadcast
 ```
 
-### Deploy (Arbitrum Sepolia)
+### Deploy (Arbitrum)
 
 ```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url arbitrum_sepolia --broadcast
-$ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url arbitrum_sepolia --broadcast
+
+$ forge script script/arbitrum/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url arbitrum_sepolia --broadcast
+$ forge script script/arbitrum/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url arbitrum_sepolia --broadcast
+$ forge script script/arbitrum/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url arbitrum_sepolia --broadcast
+$ forge script script/arbitrum/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url arbitrum_sepolia --broadcast
+$ forge script script/arbitrum/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url arbitrum_sepolia --broadcast
+
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url arbitrum_sepolia --broadcast
+
 $ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url arbitrum_sepolia --broadcast
 ```
 
-### Deploy (Base Sepolia)
+Sample Contract Address: [0x92C7546CA3f38cc9dd7eB02386cffAD86090c87a](https://sepolia.arbiscan.io/address/0x92C7546CA3f38cc9dd7eB02386cffAD86090c87a)
+
+### Deploy (Base)
 
 ```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url base_sepolia --broadcast
-$ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url base_sepolia --broadcast
+
+$ forge script script/base/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url base_sepolia --broadcast
+$ forge script script/base/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url base_sepolia --broadcast
+$ forge script script/base/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url base_sepolia --broadcast
+$ forge script script/base/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url base_sepolia --broadcast
+$ forge script script/base/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url base_sepolia --broadcast
+
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url base_sepolia --broadcast
 $ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url base_sepolia --broadcast
 ```
 
-### Deploy (BSC Testnet)
+Sample Contract Address: [0xf1ae60D14eD26b20f05734F087132e50FA25A65d](https://sepolia.basescan.org/address/0xf1ae60D14eD26b20f05734F087132e50FA25A65d)
+
+### Deploy (BSC)
 
 ```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url bsc_testnet --broadcast
-$ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url bsc_testnet --broadcast
+
+$ forge script script/bsc/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url bsc_testnet --broadcast
+$ forge script script/bsc/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url bsc_testnet --broadcast
+$ forge script script/bsc/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url bsc_testnet --broadcast
+$ forge script script/bsc/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url bsc_testnet --broadcast
+$ forge script script/bsc/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url bsc_testnet --broadcast
+
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url bsc_testnet --broadcast
 $ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url bsc_testnet --broadcast
 ```
 
-Sample Contract Address: [0x431c8A9973FC7827d3E74BEf5391Dd7f91859ab8](https://sepolia.arbiscan.io/address/0x431c8A9973FC7827d3E74BEf5391Dd7f91859ab8)
+Sample Contract Address: [0xCEA004A2Bff2038AF7FC55Fb298fF28fd8E1B273](https://testnet.bscscan.com/address/0xCEA004A2Bff2038AF7FC55Fb298fF28fd8E1B273)
 
 ### Verify Contract (Arbitrum Sepolia)
 
@@ -152,14 +179,21 @@ Get all selections made by a specific user:
 $ cast call $CONTRACT_ADDRESS "getUserSelections(address)" $(cast wallet address $PRIVATE_KEY)
 ```
 
-Get the address of who selected a specific coordinate:
-```shell
-$ cast call $CONTRACT_ADDRESS "getCoordinateSelector(uint256,uint256)" $X $Y
-```
-
 Get the type of a cube by its coordinate hash:
 ```shell
-$ cast call $CONTRACT_ADDRESS "getCube(bytes32)" <COORDINATE_HASH>
+# Generate SALT_BYTES by hashing HASH_SALT with chain ID
+$ CHAIN_ID=1  # For Arbitrum Sepolia
+$ SALT_BYTES=$(echo -n "${HASH_SALT}_${CHAIN_ID}" | openssl dgst -sha256 -binary | xxd -p -c 32)
+
+# Generate coordinate hash
+$ COORDINATE_HASH=$(cast keccak \
+  $(cast --concat-hex \
+    $(cast --to-bytes32 $(cast --to-uint256 $X)) \
+    $(cast --to-bytes32 $(cast --to-uint256 $Y)) \
+    "0x$SALT_BYTES"))
+
+# Query cube type
+$ cast call $CONTRACT_ADDRESS "getCube(bytes32)" $COORDINATE_HASH | cast --to-dec
 ```
 
 Get referral statistics for an address:
