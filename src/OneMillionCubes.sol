@@ -139,6 +139,7 @@ contract OneMillionCubes is Ownable {
     error NoSelections();
     error AlreadyInitialized();
     error ContractNotInitialized();
+    error InsufficientContractBalance(uint256 requested, uint256 available);
 
     /**
      * @notice Contract constructor
@@ -331,21 +332,25 @@ contract OneMillionCubes is Ownable {
     }
 
     /**
-     * @notice Allow the owner to withdraw all funds in case of emergency
+     * @notice Allow the owner to withdraw a specific amount in case of emergency
      * @dev Can only be called after the specified block number in game parameters
+     * @param amount Amount of ETH to withdraw
      */
-    function emergencyWithdraw() external onlyOwner {
+    function emergencyWithdraw(uint256 amount) external onlyOwner {
         if (block.number < gameConfig.blockNumber) {
             revert WithdrawalTooEarly(block.number, gameConfig.blockNumber);
         }
 
-        uint256 balance = address(this).balance;
-        (bool sent, ) = payable(msg.sender).call{value: balance}("");
+        if (amount > address(this).balance) {
+            revert InsufficientContractBalance(amount, address(this).balance);
+        }
+
+        (bool sent, ) = payable(msg.sender).call{value: amount}("");
         if (!sent) {
             revert WithdrawalFailed();
         }
 
-        emit EmergencyWithdrawal(msg.sender, balance);
+        emit EmergencyWithdrawal(msg.sender, amount);
     }
 
     /**

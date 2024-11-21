@@ -46,6 +46,7 @@ $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url http://loc
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url arbitrum_sepolia --broadcast
 $ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url arbitrum_sepolia --broadcast
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url arbitrum_sepolia --broadcast
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url arbitrum_sepolia --broadcast
 ```
 
 ### Deploy (Base Sepolia)
@@ -54,6 +55,7 @@ $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url arbitrum_s
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url base_sepolia --broadcast
 $ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url base_sepolia --broadcast
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url base_sepolia --broadcast
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url base_sepolia --broadcast
 ```
 
 ### Deploy (BSC Testnet)
@@ -62,6 +64,7 @@ $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url base_sepol
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url bsc_testnet --broadcast
 $ forge script script/RegisterCubes.s.sol:RegisterCubes --rpc-url bsc_testnet --broadcast
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url bsc_testnet --broadcast
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url bsc_testnet --broadcast
 ```
 
 Sample Contract Address: [0x431c8A9973FC7827d3E74BEf5391Dd7f91859ab8](https://sepolia.arbiscan.io/address/0x431c8A9973FC7827d3E74BEf5391Dd7f91859ab8)
