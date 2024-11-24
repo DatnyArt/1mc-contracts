@@ -43,7 +43,7 @@ contract OneMillionCubes is Ownable {
     struct GameConfig {
         uint256 fee;
         uint256 minDiscElemNumb;
-        uint256 blockNumber;
+        uint256 blockTimestamp;
         uint256 totalElemNumb;
         uint256 maxSelectionsPerTx;
     }
@@ -126,7 +126,7 @@ contract OneMillionCubes is Ownable {
     error AllCubesRegistered(CubeType cubeType);
     error InsufficientFee(uint256 providedFee, uint256 requiredFee);
     error CoordinateAlreadySelected();
-    error WithdrawalTooEarly(uint256 currentBlock, uint256 requiredBlock);
+    error WithdrawalTooEarly(uint256 currentTimestamp, uint256 requiredTimestamp);
     error WithdrawalFailed();
     error InsufficientSelections(
         uint256 currentSelections,
@@ -337,8 +337,8 @@ contract OneMillionCubes is Ownable {
      * @param amount Amount of ETH to withdraw
      */
     function emergencyWithdraw(uint256 amount) external onlyOwner {
-        if (block.number < gameConfig.blockNumber) {
-            revert WithdrawalTooEarly(block.number, gameConfig.blockNumber);
+        if (block.timestamp < gameConfig.blockTimestamp) {
+            revert WithdrawalTooEarly(block.timestamp, gameConfig.blockTimestamp);
         }
 
         if (amount > address(this).balance) {

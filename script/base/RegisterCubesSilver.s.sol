@@ -7,13 +7,7 @@ import "../../src/OneMillionCubes.sol";
 
 contract RegisterCubesSilver is Script {
 
-    bytes32[] public silverHashes = [
-        bytes32(0x54ded65d140a27098fbb6e2e7f8721ed8b09c08a1a416ba7d378a5b86366630f),
-        bytes32(0xf60505698f53616c59e95aab2614f445c1df4c93da34e221c3ac6d661078b975),
-        bytes32(0xfbdc8b52d8597d7f5fdb6a447601ebc63f0fb8c6a2da535c201e528793668144),
-        bytes32(0xb4841c4fca36dc9257c30ba9fb09a814e728e35c40142ecc7bac6cad0e93c88c),
-        bytes32(0x88d98793f897a1a6d6af83c324e6df7c74060b859772ffb08a75d8c62dddc050)
-    ];
+    bytes32[] public silverHashes = [];
 
     OneMillionCubes public oneMillionCubes;
     uint256 ownerPrivateKey;

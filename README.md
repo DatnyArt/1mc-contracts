@@ -47,6 +47,20 @@ $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url http://loc
 ### Deploy (Arbitrum)
 
 ```shell
+$ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url arbitrum_mainnet --broadcast
+
+$ forge script script/arbitrum/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url arbitrum_mainnet --broadcast
+$ forge script script/arbitrum/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url arbitrum_mainnet --broadcast
+$ forge script script/arbitrum/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url arbitrum_mainnet --broadcast
+$ forge script script/arbitrum/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url arbitrum_mainnet --broadcast
+$ forge script script/arbitrum/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url arbitrum_mainnet --broadcast
+
+$ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url arbitrum_mainnet --broadcast
+
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url arbitrum_mainnet --broadcast
+```
+
+```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url arbitrum_sepolia --broadcast
 
 $ forge script script/arbitrum/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url arbitrum_sepolia --broadcast
@@ -65,6 +79,19 @@ Sample Contract Address: [0x92C7546CA3f38cc9dd7eB02386cffAD86090c87a](https://se
 ### Deploy (Base)
 
 ```shell
+$ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url base_mainnet --broadcast
+
+$ forge script script/base/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url base_mainnet --broadcast
+$ forge script script/base/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url base_mainnet --broadcast
+$ forge script script/base/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url base_mainnet --broadcast
+$ forge script script/base/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url base_mainnet --broadcast
+$ forge script script/base/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url base_mainnet --broadcast
+
+$ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url base_mainnet --broadcast
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url base_mainnet --broadcast
+```
+
+```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url base_sepolia --broadcast
 
 $ forge script script/base/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url base_sepolia --broadcast
@@ -80,6 +107,19 @@ $ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url base_s
 Sample Contract Address: [0xf1ae60D14eD26b20f05734F087132e50FA25A65d](https://sepolia.basescan.org/address/0xf1ae60D14eD26b20f05734F087132e50FA25A65d)
 
 ### Deploy (BSC)
+
+```shell
+$ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url bsc_mainnet --broadcast
+
+$ forge script script/bsc/RegisterCubesGold.s.sol:RegisterCubesGold --rpc-url bsc_mainnet --broadcast
+$ forge script script/bsc/RegisterCubesSilver.s.sol:RegisterCubesSilver --rpc-url bsc_mainnet --broadcast
+$ forge script script/bsc/RegisterCubesBronze.s.sol:RegisterCubesBronze --rpc-url bsc_mainnet --broadcast
+$ forge script script/bsc/RegisterCubesPlatinum.s.sol:RegisterCubesPlatinum --rpc-url bsc_mainnet --broadcast
+$ forge script script/bsc/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-url bsc_mainnet --broadcast
+
+$ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url bsc_mainnet --broadcast
+$ forge script script/EmergencyWithdraw.s.sol:EmergencyWithdraw --rpc-url bsc_mainnet --broadcast
+```
 
 ```shell
 $ forge script script/DeployOneMillionCubes.s.sol:DeployOneMillionCubes --rpc-url bsc_testnet --broadcast

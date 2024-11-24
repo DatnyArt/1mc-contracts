@@ -42,7 +42,7 @@ abstract contract OneMillionCubesCore is Test {
         OneMillionCubes.GameConfig memory gameConfig = OneMillionCubes.GameConfig({
             fee: FEE,
             minDiscElemNumb: MIN_DISC_ELEM_NUMB,
-            blockNumber: block.number + 1000,
+            blockTimestamp: block.timestamp + 1000,
             totalElemNumb: TOTAL_ELEM_NUMB,
             maxSelectionsPerTx: MAX_SELECTIONS_PER_TX
         });

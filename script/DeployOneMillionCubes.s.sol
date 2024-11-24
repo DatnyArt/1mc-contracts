@@ -14,26 +14,26 @@ contract DeployOneMillionCubes is Script {
 
         // Create game configuration parameters
         OneMillionCubes.GameConfig memory gameConfig = OneMillionCubes.GameConfig({
-            fee: 0.00016 ether,
-            minDiscElemNumb: 25,
-            blockNumber: block.number + 10000, // Set this to a future block number
-            totalElemNumb: 10000,
+            fee: 0.0015 ether,
+            minDiscElemNumb: 800000,
+            blockTimestamp: 1740484800,
+            totalElemNumb: 1000000,
             maxSelectionsPerTx: 5
         });
 
         // Create reward parameters
-        // 1 ether ~ 3175 USD
+        // 1 ether ~ 3320 USD
         OneMillionCubes.RewardParameters memory rewardParams = OneMillionCubes.RewardParameters({
-            singleGoldReward: 0.0001 ether,
+            singleGoldReward: 300 ether,
             numOfGoldRewards: 3,
-            singleSilverReward: 0.0002 ether,
-            numOfSilverRewards: 5,
-            singleBronzeReward: 0.0003 ether,
-            numOfBronzeRewards: 10,
-            singlePlatinumReward: 0.0004 ether,
-            numOfPlatinumRewards: 50,
-            singleDiamondReward: 0.0005 ether,
-            numOfDiamondRewards: 100
+            singleSilverReward: 0.15 ether,
+            numOfSilverRewards: 500,
+            singleBronzeReward: 0.03 ether,
+            numOfBronzeRewards: 1000,
+            singlePlatinumReward: 0.015 ether,
+            numOfPlatinumRewards: 5000,
+            singleDiamondReward: 0.003 ether,
+            numOfDiamondRewards: 10000
         });
 
         OneMillionCubes cubes = new OneMillionCubes(

@@ -5,7 +5,7 @@ import "./OneMillionCubesCore.t.sol";
 
 contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     event EmergencyWithdrawal(address indexed owner, uint256 amount);
-    error WithdrawalTooEarly(uint256 currentBlock, uint256 requiredBlock);
+    error WithdrawalTooEarly(uint256 currentTimestamp, uint256 requiredTimestamp);
     error InsufficientContractBalance(uint256 requested, uint256 available);
 
     address payable public withdrawalRecipient;
@@ -22,8 +22,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testEmergencyWithdrawSuccess() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 initialBalance = withdrawalRecipient.balance;
         uint256 withdrawAmount = 5 ether;
@@ -35,8 +35,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testEmergencyWithdrawFullBalance() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 initialBalance = withdrawalRecipient.balance;
         uint256 contractBalance = address(cubes).balance;
@@ -48,8 +48,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testEmergencyWithdrawEmitsEvent() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 withdrawAmount = 1 ether;
 
@@ -60,24 +60,24 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
         cubes.emergencyWithdraw(withdrawAmount);
     }
 
-    function testCannotWithdrawBeforeBlockNumber() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber - 1);
+    function testCannotWithdrawBeforeTimestamp() public {
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp - 1);
 
         vm.prank(owner);
         vm.expectRevert(
             abi.encodeWithSelector(
                 WithdrawalTooEarly.selector,
-                blockNumber - 1,
-                blockNumber
+                timestamp - 1,
+                timestamp
             )
         );
         cubes.emergencyWithdraw(1 ether);
     }
 
-    function testCanWithdrawAtExactBlockNumber() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber);
+    function testCanWithdrawAtExactTimestamp() public {
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp);
 
         uint256 withdrawAmount = 1 ether;
         vm.prank(owner);
@@ -87,8 +87,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testOnlyOwnerCanWithdraw() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         vm.prank(user1);
         vm.expectRevert();
@@ -96,8 +96,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testCannotWithdrawMoreThanContractBalance() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 contractBalance = address(cubes).balance;
         uint256 excessAmount = contractBalance + 1 ether;
@@ -113,8 +113,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testWithdrawUpdatesContractBalance() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 initialContractBalance = address(cubes).balance;
         uint256 withdrawAmount = 2 ether;
@@ -129,8 +129,8 @@ contract OneMillionCubesEmergencyWithdraw is OneMillionCubesCore {
     }
 
     function testMultiplePartialWithdrawals() public {
-        (, , uint256 blockNumber, , ) = cubes.gameConfig();
-        vm.roll(blockNumber + 10000);
+        (, , uint256 timestamp, , ) = cubes.gameConfig();
+        vm.warp(timestamp + 10000);
 
         uint256 firstWithdrawal = 3 ether;
         uint256 secondWithdrawal = 2 ether;

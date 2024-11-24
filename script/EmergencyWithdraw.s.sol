@@ -17,12 +17,12 @@ contract EmergencyWithdraw is Script {
         address caller = vm.addr(deployerPrivateKey);
         require(owner == caller, "Caller is not the owner");
 
-        // Get current block number and required block number
-        uint256 currentBlock = block.number;
-        (, , uint256 requiredBlock, , ) = cubes.gameConfig();
-        console.log("Current block:", currentBlock);
-        console.log("Required block:", requiredBlock);
-        require(currentBlock >= requiredBlock, "Block number condition not met");
+        // Get current timestamp and required timestamp
+        uint256 currentTimestamp = block.timestamp;
+        (, , uint256 requiredTimestamp, , ) = cubes.gameConfig();
+        console.log("Current timestamp:", currentTimestamp);
+        console.log("Required timestamp:", requiredTimestamp);
+        require(currentTimestamp >= requiredTimestamp, "Timestamp condition not met");
 
         // Get contract balance before withdrawal
         uint256 balanceBefore = address(cubes).balance;
