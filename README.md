@@ -74,7 +74,7 @@ $ forge script script/bsc/RegisterCubesDiamond.s.sol:RegisterCubesDiamond --rpc-
 $ forge script script/InitializeCubes.s.sol:InitializeCubes --rpc-url bsc_mainnet --broadcast
 ```
 
-Contract Address: [0x8fACfecfF4c84372faC9C852728E17683570AC53](https://bscscan.com/address/0x8fACfecfF4c84372faC9C852728E17683570AC53)
+Contract Address: [0x44e450D7664df3022f6A9BC8238bD3081FecFf0C](https://bscscan.com/address/0x44e450D7664df3022f6A9BC8238bD3081FecFf0C)
 
 ### Interact with Contract
 
